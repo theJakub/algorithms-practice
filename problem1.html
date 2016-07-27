@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Function Algorithm Problem 1</title>
+</head>
+<body>
+	<script>
+		// 1. Write a function which takes an array of numbers and returns the mode of that array.
+		// Mode is the most common number.
+		var test1 = [2, 4, 4, 4, 6, 6, 1]; // - > 4
+		var test2 = [0, 0, 0, 10]; // -> 0
+		var test3 = [1]; //-> 1
+		var test4 = [9,7,4,3,1,2,5,4,6,4,4,8,0,4]; // 4
+		var test5 = [-1,-1,-1,-1,5,3,6,4,8]; // -1
+		var test6 = [2.5,2.5,2.5,1,2,5,6]; // 2.5
+
+		// I need a function with a for loop to go through the array given.
+		// I need a function to check the array elements against what else is in the array.
+		// I need a function to skip numbers that have already been counted.
+		// I need an object to hold the numbers found and the count.
+		// I need a function that will go through and find the highest count in my object.
+
+
+		function checker(element, chArr){
+			for(var k = 0; k < chArr.length; k++){// this is to see if the number has already been counted
+				if(element == chArr[k].number){
+					return false;
+				} 
+			}
+			return true; 		
+		}
+
+		function builder(number, counted){ // this builds the object with the number and count
+			this.number = number;
+			this.counted = counted;
+		}		
+
+		function count(num, cArr){ // counts how many times the number is found in the array. returns the count
+			var count = 0;
+			for(var j = 0; j < cArr.length; j++){
+				if(num == cArr[j]){
+					count += 1;
+				}
+			}
+			return count;
+		}
+
+		function findMode(arr){ 
+			var countArr = [arr[0]];
+			for(var i = 0; i < arr.length; i++){ // cycles through numbers in array
+				if(i === 0){
+					countArr = [new builder(arr[i], count(arr[i], arr))];
+				} else if(checker(arr[i], countArr)){
+					countArr.push(new builder(arr[i], count(arr[i], arr)));
+				}
+			}
+			var highest = [{number:countArr[0].number, counted:countArr[0].counted}]; // for/if to see what count is highest
+			for(var h = 0; h < countArr.length; h++){
+				if (countArr[h].counted > highest[0].counted){
+					highest = [{number:countArr[h].number, counted:countArr[h].counted}];
+				} 
+			}
+			console.log(highest[0].number); // console.log the highest counted number
+		}
+
+		findMode(test1);
+		findMode(test2);
+		findMode(test3);
+		findMode(test4);
+		findMode(test5);
+		findMode(test6);
+
+	</script>
+</body>
+</html>

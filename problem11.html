@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Function Algorithm Problem 11</title>
+</head>
+<body>
+	<script>
+
+		// 11. One way of encoding a message is called a "square code". Given a message like:
+		  
+		//   "Have a nice day!"
+		  
+		//   We determine an appropriate size of a square or rectangle to contain this message without spaces like so:
+		  
+		//   have
+		//   anic
+		//   eday
+		//   !
+		  
+		//   We then read the square in columns, which gives us our encoded message:
+		  
+		//   hae! and via ecy
+		  
+		//   Write two functions, called encodeSquare and decodeSquare. encodeSquare should be able to encrypt any arbitrary string, and decodeSquare should be able to unencrypt any arbitrary encoded string. The unencrypted string will have no spaces, and that's ok.
+
+		var x = 0;
+		var toRun;
+		while(x === 0){
+			toRun = prompt("Would you like to encode or decode text? Enter 'Encode' or 'Decode'").toLowerCase();	
+			if(toRun === "encode"){
+				encodeSquare();
+				x += 1;
+			} else if (toRun === "decode"){
+				decodeSquare();
+				x += 1;
+			}
+		}
+
+
+		function encodeSquare(){
+			normTxt = prompt("Give me text to encode.");
+			normTxt = normTxt.split(" ");
+			normArr = [];
+			for(var i = 0; i < normTxt.length; i++){
+				normTxt[i] = normTxt[i].split("");
+			}
+			for(i = 0; i < normTxt.length; i++){
+				for(var j = 0; j < normTxt[i].length; j++){
+					normArr.push(normTxt[i][j]);
+				}
+			}
+			var sqr = Math.floor(Math.sqrt(normArr.length));
+			var sqrArr = [];
+			for(i = 0; i <= sqr; i++){
+				sqrArr[i] = normArr.splice(0,sqr);
+			}
+			codedString = "";
+			for(i = 0; i < sqr; i++){
+				for(var j = 0; j < sqrArr.length; j++){
+					if(sqrArr[j][i]){
+						codedString = codedString + sqrArr[j][i];
+					}
+				}
+				codedString = codedString + " ";
+			}
+			return console.log(codedString);
+		}
+
+		function decodeSquare(){
+			codeTxt = prompt("Give me text to decode.");
+			codeTxt = codeTxt.split(" ");
+			for(var i = 0; i < codeTxt.length; i++){
+				codeTxt[i] = codeTxt[i].split("");
+			}
+			normString = "";
+			for(i = 0; i < codeTxt[0].length; i++){
+				for(var j = 0; j < codeTxt.length; j++){
+					if(codeTxt[j][i]){
+						normString = normString + codeTxt[j][i];
+					}
+				}
+			}
+			return console.log(normString);
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Function Algorithm Problem 9</title>
+</head>
+<body>
+	<script>
+		// 9. Write a function which takes two sorted arrays and merges them into a new sorted array.
+
+		var test1a = [1,2,5,6,9];
+		var test1b = [3,4,5,10];
+		// -> [1,2,3,4,5,5,6,9,10]
+		var test2a = [];
+		var test2b = [];
+		// -> []
+		var test3a = [-1, 0, 1];
+		var test3b = [-2, 2];
+		// -> [-2, -1, 0, 1, 2]
+		
+		function putTogether(arr1, arr2){
+			for(var j = 0; j < arr2.length; j++){
+				for(var i = 0; i < arr1.length; i++){
+					if(arr1[i] > arr2[j]){
+						arr1.splice(i,0,arr2[j]);
+						j += 1;
+					}
+				}
+				arr1.push(arr2[j]);
+			}	
+			console.log(arr1);
+		}
+
+		putTogether(test1a, test1b);
+		putTogether(test2a, test2b);
+		putTogether(test3a, test3b);
+
+	</script>
+</body>
+</html>

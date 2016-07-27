@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Function Algorithm Problem 12</title>
+</head>
+<body>
+	<div id="output"></div>
+	<script>
+		// 12. Write a program to count the occurrences of all letter pairs in a sample of text (like the first paragraph of the Constitution). Disregard differences between lower and upper case letters. Output the 10 most frequent letter pairs, in order by percent of total. Your program should correctly process situations where the input string is empty or where less than 10 pairs occur. 
+
+		// Example output:
+		// th 2.37%
+		// in 2.20%
+		// fj 2.00%
+		// ...
+		var lorem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+		var test = lorem.toLowerCase();
+
+		function getText(){
+			var string = prompt("Enter text to count character pairs.").toLowerCase();
+			while(!string || string.length < 11){
+				string = prompt("Enter text to count character pairs.").toLowerCase();
+			}
+			var pairsArr = separatePairs(string);
+			var count = countPairs(pairsArr);
+			var percents = findPercentage(count, pairsArr.length);
+			document.getElementById("output").innerHTML = percents;
+		}
+
+		function separatePairs(string){
+			pairsArr = [];
+			for(var i = 1; i < string.length; i++){
+				var pair = string[i-1]+string[i];
+				pairsArr[i] = pair;
+			}
+			return pairsArr;
+		}
+
+		function countPairs(arr){// counts all the months and returns them in object
+			var count = [];
+			for(var i = 0; i < arr.length; i ++){
+				if(count[arr[i]] === undefined){
+					count[arr[i]] = 0;
+				}
+				count[arr[i]] = count[arr[i]] + 1;
+			}
+			return count;
+		}
+
+		function findPercentage(arr, length) { // arr[key] gives the count at each index
+			var perArr = [];
+			var percentage = 0;
+			for(var key in arr){
+				percentage = ((arr[key]/length)*100);
+				perArr[key] = percentage;
+			}
+			var finalArr = [[0,0]];
+			for(var pair in perArr){
+				for(var i = 0; i < finalArr.length; i++){ 
+					if(pair === "undefined"){
+						i = i + finalArr.length;
+					} else if (finalArr[0][0] === 0) {
+						finalArr[0] = [perArr[pair], pair];
+					} else if (perArr[pair] > finalArr[i][0]){
+						finalArr.splice(i,0,[perArr[pair], pair]);
+						i = i + finalArr.length;
+					} else if (i === finalArr.length - 1){
+						finalArr.push([perArr[pair], pair]);
+						i = i + finalArr.length;
+					}
+				}	
+			}
+			highest = "";
+			for (var j = 0; j < 10; j++){
+				finalArr[j][0] = (Math.round(finalArr[j][0]*100))/100;
+				highest = highest + (j+1) + ") " +"'"+finalArr[j][1]+"'"+ " "+finalArr[j][0]+" % "+"<br>";
+			}
+			return highest;
+		}
+
+		// findPercentage(countPairs(separatePairs(test)), 446);
+		getText();
+
+
+	</script>
+</body>
+</html>

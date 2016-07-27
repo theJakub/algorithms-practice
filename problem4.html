@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Function Algorithm Problem 4</title>
+</head>
+<body>
+	<script>
+		// 4. Write a function which takes an array of integers and returns an array with any duplicate integers removed.
+		// [1,1,2,3,1,2,3] -> [1,2,3]
+		// [1,4,4,4,2,2,4,4,4] -> [1,4,2]
+
+		// write another function that for loops through the newArray and checks it agains arr[i]. the new function should take two perameters. (newArray, arr[i]).
+		// there is a function in javascript called indexof that can do this also.
+
+		function workArr (num, arrw){ // checks to see if there is a duplicate
+			for (var j = 0; j < arrw.length; j ++){
+				if(num == arrw[j]){
+					return false;
+				}
+			}
+			return num;
+		}
+
+		function uniqueArray (arr){
+			var newArray = [arr[0]];
+			for (var i = 1; i < arr.length; i++){
+				if(workArr(arr[i], newArray)){
+					newArray.push(arr[i]);
+				}
+			}
+			return newArray;
+		}
+
+		var testArray1 = [1,1,2,3,1,2,3];
+		var testArray2 = [1,4,4,4,2,2,4,4,4];
+		var testArray3 = [6,3,7,8,9,3,7,6,3,8]; // [6,3,7,8,9]
+
+		console.log(uniqueArray(testArray1));
+		console.log(uniqueArray(testArray2));
+		console.log(uniqueArray(testArray3));
+
+	</script>
+</body>
+</html>
